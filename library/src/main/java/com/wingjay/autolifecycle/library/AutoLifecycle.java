@@ -1,12 +1,13 @@
-package com.wingjay.jayandroid.autolifecycle;
+package com.wingjay.autolifecycle.library;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import android.support.annotation.NonNull;
-import com.wingjay.jayandroid.BaseActivity;
-import com.wingjay.jayandroid.BaseDialogFragment;
-import com.wingjay.jayandroid.BaseFragment;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import com.wingjay.autolifecycle.library.lifecycle.ActivityLifecycle;
+import com.wingjay.autolifecycle.library.lifecycle.FragmentLifecycle;
 import rx.Observable;
 import rx.Observable.OnSubscribe;
 import rx.Subscriber;
@@ -54,16 +55,14 @@ public class AutoLifecycle {
                     }
                 },
                 event.activity(),
-                event.fragment(),
-                event.dialog());
+                event.fragment());
         }
     }
 
     private void registerFunctionOnLifecycle(ILifecycleProvider lifecycleProvider,
                                              final OnSubscribe<Object> executable,
                                              ActivityLifecycle activityLifecycle,
-                                             FragmentLifecycle fragmentLifecycle,
-                                             DialogFragmentLifecycle dialogFragmentLifecycle) {
+                                             FragmentLifecycle fragmentLifecycle) {
         Observable wrapper = Observable.defer(new Func0<Observable<Object>>() {
             @Override
             public Observable<Object> call() {
@@ -71,15 +70,12 @@ public class AutoLifecycle {
             }
         });
 
-        if (lifecycleProvider instanceof BaseActivity
+        if (lifecycleProvider instanceof AppCompatActivity
             && activityLifecycle != ActivityLifecycle.NULL) {
             lifecycleProvider.executeWhen(wrapper, activityLifecycle);
-        } else if (lifecycleProvider instanceof BaseFragment
+        } else if (lifecycleProvider instanceof Fragment
             && fragmentLifecycle != FragmentLifecycle.NULL) {
             lifecycleProvider.executeWhen(wrapper, fragmentLifecycle);
-        } else if (lifecycleProvider instanceof BaseDialogFragment
-            && dialogFragmentLifecycle != DialogFragmentLifecycle.NULL) {
-            lifecycleProvider.executeWhen(wrapper, dialogFragmentLifecycle);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.wingjay.jayandroid.autolifecycle;
+package com.wingjay.autolifecycle.library;
 
 /**
  * IContextLifecycle

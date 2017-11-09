@@ -1,4 +1,4 @@
-package com.wingjay.jayandroid.autolifecycle;
+package com.wingjay.autolifecycle.library;
 
 import android.support.annotation.NonNull;
 import rx.Observable;
@@ -17,6 +17,7 @@ public class LifecycleProviderDelegate {
 
     public <T> Transformer<T, T> bindUntilEvent(@NonNull final PublishSubject<IContextLifecycle> lifecycleSubject,
                                                 @NonNull final IContextLifecycle event) {
+        ALog.i("bindUntilEvent " + event);
         return new Observable.Transformer<T, T>() {
             @Override
             public Observable<T> call(Observable<T> sourceObservable) {
@@ -24,6 +25,7 @@ public class LifecycleProviderDelegate {
                     lifecycleSubject.takeFirst(new Func1<IContextLifecycle, Boolean>() {
                         @Override
                         public Boolean call(IContextLifecycle contextLifecycle) {
+                            ALog.i(event + "appears!");
                             return contextLifecycle.equals(event);
                         }
                     });

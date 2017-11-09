@@ -1,6 +1,10 @@
-package com.wingjay.jayandroid.autolifecycle;
+package com.wingjay.autolifecycle.app;
 
-import android.util.Log;
+import com.wingjay.autolifecycle.library.ALog;
+import com.wingjay.autolifecycle.library.AutoLifecycle;
+import com.wingjay.autolifecycle.library.AutoLifecycleEvent;
+import com.wingjay.autolifecycle.library.ILifecycleProvider;
+import com.wingjay.autolifecycle.library.lifecycle.ActivityLifecycle;
 
 /**
  * IKnowLifecycle
@@ -16,31 +20,31 @@ public class IKnowLifecycle {
 
     @AutoLifecycleEvent(activity = ActivityLifecycle.CREATE)
     private void onCreate() {
-        Log.e("jaydebug", "IKnowLifecycle onCreate");
+        ALog.e("IKnowLifecycle onCreate");
     }
 
     @AutoLifecycleEvent(activity = ActivityLifecycle.START)
-    private void onSTART() {
-        Log.e("jaydebug", "IKnowLifecycle onSTART");
+    private void onStart() {
+        ALog.e("IKnowLifecycle onSTART");
     }
 
     @AutoLifecycleEvent(activity = ActivityLifecycle.RESUME)
-    private void onRESUME() {
-        Log.e("jaydebug", "IKnowLifecycle onRESUME");
+    private void onResume() {
+        ALog.e("IKnowLifecycle onRESUME");
     }
 
     @AutoLifecycleEvent(activity = ActivityLifecycle.PAUSE)
-    private void onPAUSE() {
-        Log.e("jaydebug", "IKnowLifecycle onPAUSE");
+    private void onPause() {
+        ALog.e("IKnowLifecycle onPAUSE");
     }
 
     @AutoLifecycleEvent(activity = ActivityLifecycle.STOP)
-    private void onSTOP() {
-        Log.e("jaydebug", "IKnowLifecycle onSTOP");
+    private void onStop() {
+        ALog.e("IKnowLifecycle onSTOP");
     }
 
     @AutoLifecycleEvent(activity = ActivityLifecycle.DESTROY)
-    private void onDESTROY() {
-        Log.e("jaydebug", "IKnowLifecycle onDESTROY");
+    private void onDestroy() {
+        ALog.e("IKnowLifecycle onDESTROY");
     }
 }

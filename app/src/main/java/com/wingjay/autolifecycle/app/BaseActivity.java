@@ -1,18 +1,21 @@
-package com.wingjay.jayandroid;
+package com.wingjay.autolifecycle.app;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import butterknife.ButterKnife;
-import com.wingjay.jayandroid.autolifecycle.ActivityLifecycle;
-import com.wingjay.jayandroid.autolifecycle.IContextLifecycle;
-import com.wingjay.jayandroid.autolifecycle.ILifecycleProvider;
-import com.wingjay.jayandroid.autolifecycle.LifecycleProviderDelegate;
+import com.wingjay.autolifecycle.library.ALog;
+import com.wingjay.autolifecycle.library.IContextLifecycle;
+import com.wingjay.autolifecycle.library.ILifecycleProvider;
+import com.wingjay.autolifecycle.library.LifecycleProviderDelegate;
+import com.wingjay.autolifecycle.library.lifecycle.ActivityLifecycle;
 import rx.Observable;
 import rx.Observable.Transformer;
 import rx.subjects.PublishSubject;
 
+/**
+ * author: wingjay
+ * http://wingjay.com
+ */
 public class BaseActivity extends AppCompatActivity implements ILifecycleProvider {
 
     protected final PublishSubject<IContextLifecycle> lifecycleSubject = PublishSubject.create();
@@ -22,75 +25,74 @@ public class BaseActivity extends AppCompatActivity implements ILifecycleProvide
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate");
+        ALog.i("onCreate");
         lifecycleSubject.onNext(ActivityLifecycle.CREATE);
     }
 
     @Override
     public void setContentView(int layoutResID) {
         lifecycleSubject.onNext(ActivityLifecycle.PRE_INFLATE);
-        Log.i(TAG, "setContentView");
+        ALog.i("setContentView");
         super.setContentView(layoutResID);
-        ButterKnife.bind(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(TAG, "onStart");
+        ALog.i("onStart");
         lifecycleSubject.onNext(ActivityLifecycle.START);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(TAG, "onResume");
+        ALog.i("onResume");
         lifecycleSubject.onNext(ActivityLifecycle.RESUME);
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        Log.i(TAG, "onPostResume");
+        ALog.i("onPostResume");
     }
 
     @Override
     protected void onPause() {
         lifecycleSubject.onNext(ActivityLifecycle.PAUSE);
         super.onPause();
-        Log.i(TAG, "onPause");
+        ALog.i("onPause");
     }
 
     @Override
     protected void onStop() {
         lifecycleSubject.onNext(ActivityLifecycle.STOP);
         super.onStop();
-        Log.i(TAG, "onStop");
+        ALog.i("onStop");
     }
 
     @Override
     protected void onDestroy() {
         lifecycleSubject.onNext(ActivityLifecycle.DESTROY);
         super.onDestroy();
-        Log.i(TAG, "onDestroy");
+        ALog.i("onDestroy");
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.i(TAG, "onSaveInstanceState");
+        ALog.i("onSaveInstanceState");
     }
 
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
-        Log.i(TAG, "onResumeFragments");
+        ALog.i("onResumeFragments");
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Log.i(TAG, "onRestoreInstanceState");
+        ALog.i("onRestoreInstanceState");
     }
 
     @Override

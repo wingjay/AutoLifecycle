@@ -1,4 +1,6 @@
-package com.wingjay.jayandroid.autolifecycle;
+package com.wingjay.autolifecycle.library.lifecycle;
+
+import com.wingjay.autolifecycle.library.IContextLifecycle;
 
 /**
  * FragmentLifecycle
