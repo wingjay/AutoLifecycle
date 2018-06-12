@@ -1,6 +1,7 @@
 package com.wingjay.autolifecycle.library;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import rx.Observable;
 import rx.Observable.Transformer;
 import rx.Subscriber;
@@ -37,20 +38,21 @@ public class LifecycleProviderDelegate {
     public void executeWhen(@NonNull final PublishSubject<IContextLifecycle> lifecycleSubject,
                             @NonNull final Observable observable,
                             @NonNull final IContextLifecycle event) {
-        lifecycleSubject.takeFirst(new Func1<IContextLifecycle, Boolean>() {
+        lifecycleSubject.filter(new Func1<IContextLifecycle, Boolean>() {
             @Override
             public Boolean call(IContextLifecycle contextLifecycle) {
                 return contextLifecycle.equals(event);
             }
         }).subscribe(new Subscriber<IContextLifecycle>() {
-            @Override
-            public void onCompleted() {
+            @Override public void onCompleted() {
+                ALog.d("executeWhen onComplete");
+            }
+            @Override public void onError(Throwable e) {
+                ALog.d("executeWhen onError");
+            }
+            @Override public void onNext(IContextLifecycle iContextLifecycle) {
                 observable.subscribe();
             }
-            @Override
-            public void onError(Throwable e) {}
-            @Override
-            public void onNext(IContextLifecycle iContextLifecycle) {}
         });
     }
 }

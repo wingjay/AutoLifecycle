@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import com.wingjay.autolifecycle.library.lifecycle.ActivityLifecycle;
+import com.wingjay.autolifecycle.library.lifecycle.CommonLifecycle;
 import com.wingjay.autolifecycle.library.lifecycle.FragmentLifecycle;
 
 /**
@@ -19,4 +20,5 @@ import com.wingjay.autolifecycle.library.lifecycle.FragmentLifecycle;
 public @interface AutoLifecycleEvent {
     ActivityLifecycle activity() default ActivityLifecycle.NULL;
     FragmentLifecycle fragment() default FragmentLifecycle.NULL;
+    CommonLifecycle common() default CommonLifecycle.NULL;
 }
