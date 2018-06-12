@@ -1,2 +1,2 @@
 # AutoLifecycle
-Make your Java class be aware of Android Lifecycle. http://www.jianshu.com/p/9e139caf9008
+Make your Java class be aware of Android Lifecycle. http://wingjay.com/2017/11/09/auto-lifecycle/
